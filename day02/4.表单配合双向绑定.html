@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="msg" />{{msg}}
+      <hr>
+      <textarea v-model='msg4'>{{msg4}}</textarea>
+      <hr>
+      <input type="radio" v-model="msg1" value="0" />男
+      <input type="radio" v-model="msg1" value="1" />女{{msg1}}
+      <hr>
+      <input type="checkbox" v-model="msg3" value="" />{{msg3}}
+      <hr>
+      <input type="checkbox" v-model="msg2" value="one" />美女
+      <input type="checkbox" v-model="msg2" value="two" />少女
+      <input type="checkbox" v-model="msg2" value="three" />妇女{{msg2}}
+      <hr>
+      <select v-model='msg5'>
+        <option value="1">美女</option>
+        <option value="2">帅哥</option>
+        <option value="3">型男</option>
+        <option value="4">公主</option>
+      </select>
+      {{msg5}}
+      <hr>
+      <select v-model='msg6' multiple>
+        <option value="1">美女</option>
+        <option value="2">帅哥</option>
+        <option value="3">型男</option>
+        <option value="4">公主</option>
+      </select>
+      {{msg6}}
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          msg: '猪头肉',
+          msg1: '0',
+          msg2: [],
+          msg3:false,
+          msg4:'阿萨德吉安市',
+          msg5:1,
+          msg6:[]
+        },
+        methods: {},
+      })
+    </script>
+  </body>
+</html>

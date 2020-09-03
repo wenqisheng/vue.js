@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    <input type="text" v-model.lazy='msg'>{{msg}}
+    <hr>
+    <input type="text"  v-model.number='number'>{{number + 100}}
+    <hr>
+    <input type="text" v-model.trim='num'>{{num.length}}
+  </div>
+  <script src='./js/vue.js'></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data:{ 
+        msg:'尺度的',
+        number:10,
+        num:'',
+       },
+      methods:{},
+    })
+    </script>
+</body>
+</html>

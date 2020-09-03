@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    <div v-if='score >= 90 '>优秀</div>
+    <div v-else-if='score < 90 && score >=80 '>一般</div>
+    <div v-else>差劲</div>
+    <div v-show='msg'>非常的帅气</div>
+    <button @click='hundle'>按钮</button>
+  </div>
+  <script src='./js/vue.js'></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data:{ 
+        score:90,
+        msg:false
+       },
+      methods:{
+        hundle(){
+          this.msg=!this.msg
+        }
+      },
+    })
+    </script>
+</body>
+</html>
