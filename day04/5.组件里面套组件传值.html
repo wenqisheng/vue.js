@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    <Com-msg></Com-msg>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const com = {
+      props:['msg','num','boo','arr','obj'],
+      template:`
+      <div>子组件{{msg}}{{num}}{{boo}}{{arr}}{{obj}}</div>
+
+      `,
+    }
+    Vue.component('ComMsg',{
+      template:`
+        <div>子组件2 <com :msg='pstr' :num='pnum' :boo='pboo' :arr='parr' :obj='pobj'></com></div>
+
+      `,
+      data(){
+        return{
+          pstr:'帅气',
+          pnum:18,
+          pboo:true,
+          parr:[123,123,123],
+          pobj:{name:'周杰伦'},
+        }
+      },
+      components:{
+        com
+      }
+    }),
+    new Vue({
+      el: '#app',
+      data:{  },
+      methods:{},
+    })
+    </script>
+</body>
+</html>

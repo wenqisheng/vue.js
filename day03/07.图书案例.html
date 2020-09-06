@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style type="text/css">
+      .grid {
+        margin: auto;
+        width: 530px;
+        text-align: center;
+      }
+
+      .grid table {
+        border-top: 1px solid #c2d89a;
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .grid th,
+      td {
+        padding: 10;
+        border: 1px dashed #f3dcab;
+        height: 35px;
+        line-height: 35px;
+      }
+
+      .grid th {
+        background-color: #f3dcab;
+      }
+
+      .grid .book {
+        padding-bottom: 10px;
+        padding-top: 5px;
+        background-color: #f3dcab;
+      }
+
+      .grid .total {
+        height: 30px;
+        line-height: 30px;
+        background-color: #f3dcab;
+        border-top: 1px solid #c2d89a;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="grid">
+        <div>
+          <h1>图书管理</h1>
+          <div class="book">
+            <div>
+              <label for="id"> 编号： </label>
+              <input type="text" id="id" v-model="id" disabled />
+              <label for="name"> 名称： </label>
+              <input type="text" id="name" autocomplete="off" v-model="name" />
+              <button @click="hundle" :disabled="submitFlag">提交</button>
+            </div>
+          </div>
+        </div>
+        <div class="total">
+          <span>图书总数：</span> <span>{{books.length}}</span>
+        </div>
+
+        <!-- <div class="total"><span>图书总数：</span> <span>{{count}}</span></div> -->
+        <table>
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>名称</th>
+              <th>时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in books" :key="item.id">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.date | dateformat('yyyy-MM-DD hh:mm:ss')}}</td>
+              <td>
+                <a href="" @click.prevent="toEdit(item.id)">修改</a>
+                <span>|</span>
+                <a href="" @click.prevent="delbook(item.id)">删除</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      Vue.directive("focus", {
+        inserted: function (el) {
+          el.focus();
+        },
+      });
+      Vue.filter("dateformat", function (val, param) {
+        // console.log(val); val参数1是要过滤的数据  参数2param是用户传递的参数
+        const date = new Date(val);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const h = date.getHours();
+        const m = date.getMinutes();
+        const s = date.getSeconds();
+        // console.log(day);
+        if (param == "yyyy") {
+          return `${year}`;
+        } else if (param == "yyyy-MM-DD") {
+          return `${year}-${month}-${day}`;
+        } else if (param == "yyyy-MM-DD hh:mm:ss") {
+          return `${year}-${month}-${day} ${h}:${m}:${s}`;
+        }
+      });
+      new Vue({
+        el: "#app",
+        data: {
+          flag: false,
+          submitFlag: false,
+          id: "",
+          name: "",
+          books: [],
+        },
+        methods: {
+          hundle() {
+            if (!this.name) return;
+            if (this.flag == false) {
+              this.books.push({
+                id: this.books.length
+                  ? this.books[this.books.length - 1].id + 1
+                  : 1,
+                name: this.name,
+                date: "",
+              });
+            } else {
+              this.books.some((item) => {
+                if (item.id == this.id) {
+                  item.name = this.name;
+                  return true;
+                }
+              });
+              this.flag = false;
+            }
+            this.id = "";
+            this.name = "";
+          },
+
+          delbook(id) {
+            const index = this.books.findIndex((item) => item.id == id);
+            this.books.splice(index, 1);
+            // this.books= this.books.filter(item=>item.id!=id)
+          },
+          toEdit(id) {
+            this.flag = true;
+            const i = this.books.findIndex((item) => item.id == id);
+            this.id = this.books[i].id;
+            this.name = this.books[i].name;
+
+            // const res= this.books.filter(item=>item.id==id);
+            // this.id=res[0].id;
+            // this.name=res[0].name;
+          },
+        },
+        // computed:{
+        //   count(){
+        //       return this.books.length
+        //   }
+        // },
+        created() {
+          // 发送请求 获取到数组数据
+          const data = [
+            { id: 1, name: "三国演义", date: 1599288690549 },
+            { id: 2, name: "水浒传", date: 1599288690549 },
+            { id: 3, name: "西游记", date: 1599288690549 },
+            { id: 4, name: "红楼梦", date: 1599288690549 },
+          ];
+          this.books = data;
+        },
+        watch: {
+          name(val) {
+            // 验证图书名称是否已经存在
+            var flag = this.books.some((item) => item.name == val);
+
+            if (flag) {
+              // 图书名称存在
+              this.submitFlag = true;
+            } else {
+              // 图书名称不存在
+              this.submitFlag = false;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

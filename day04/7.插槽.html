@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'>
+    <com>我市社会人</com>
+    <com></com>
+  </div>
+  <script src='./js/vue.js'></script>
+  <script>
+    Vue.component('com',{
+      template:`
+      <div>
+        我是组件:<slot></slot>
+      </div>
+
+      // <div>
+      //   我是组件:<slot>默认值</slot>
+      // </div>
+      `,
+    })
+    new Vue({
+      el: '#app',
+      data:{  },
+      methods:{},
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>名: <input type="text" v-model="ming" /></div>
+      <div>姓: <input type="text" v-model="xing" /></div>
+      {{xingming}}
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          ming: "文奇",
+          xing: "盛",
+          // xingming:'盛文奇'
+        },
+        methods: {},
+        computed: {
+          xingming() {
+            return this.xing + this.ming;
+          },
+        },
+        // watch:{
+        //   ming(val){
+        //     this.xingming=this.xing + val
+        //   },
+        //   xing(val){
+        //     this.xingming =val+ this.ming
+        //   }
+        // }
+      });
+    </script>
+  </body>
+</html>
