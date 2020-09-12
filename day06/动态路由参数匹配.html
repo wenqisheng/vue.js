@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <router-link to="/news/10/100">新闻</router-link> -->
+      <router-link to="/news">新闻</router-link>
+      <router-link to="/music">音乐</router-link>
+      <router-view></router-view>
+    </div>
+    <script src="./lib/vue_2.5.22.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+    <script>
+      // 动态路由匹配，将路由地址中的参数拿到$route是当前路由地址的信息对象
+      const news = {
+        // props: {
+        //   abc: String,
+        //   id: Number,
+        // },
+
+        props:{
+          name:String,
+          sex:String,
+        },
+        // template: `<div>新闻{{abc}}---{{id}}</div>`,\
+
+        template: `<div>新闻{{name}}---{{sex}}</div>`,
+      };
+      const music = {
+        template: `<div>音乐</div>`,
+      };
+      // 路由对象和路由规则
+      const router = new VueRouter({
+        routes: [
+          { path: "/", redirect: "/news" },
+          // { path: "/news/:abc/:id", component: news, props: true },
+
+          { path: "/news", component: news, props:{name:'wcg',sex:'女'} },
+          { path: "/music", component: music },
+        ],
+      });
+      new Vue({
+        el: "#app",
+        data: {},
+        methods: {},
+        router,
+      });
+    </script>
+  </body>
+</html>

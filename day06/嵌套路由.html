@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link to="/music">音乐</router-link>
+      <router-link to="/movie">电影</router-link>
+      <router-link to="/news">新闻</router-link>
+      <router-view></router-view>
+    </div>
+    <script src="./lib/vue_2.5.22.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+    <script>
+      const music = {
+        template: `
+      <div>
+        <h2>音乐列表</h2>
+        <router-link to='/music/rock'>摇滚音乐</router-link>
+        <router-link to='/music/classical'>古典音乐</router-link>
+        <router-link to='/music/pop'>流行音乐</router-link>
+        <router-view/>
+      </div>
+      `,
+      };
+      const movie = {
+        template: `<div>电影列表</div>`,
+      };
+      const news = {
+        template: `<div>新闻列表</div>`,
+      };
+      const rock = {
+        template: `<div>摇滚音乐列表</div>`,
+      };
+      const classical = {
+        template: `<div>古典音乐列表</div>`,
+      };
+      const pop = {
+        template: `<div>流行音乐列表</div>`,
+      };
+
+      const router = new VueRouter({
+        routes: [
+        { path: "/", redirect: "/music" },
+          {
+            
+            path: "/music",
+            component: music,
+            chilren: [
+              { path: "/music/rock", component: rock },
+              { path: "/music/classical", component: classical },
+              { path: "/movie/pop", component: pop },
+            ],
+          },
+          { path: "/movie", component: movie },
+          { path: "/news", component: news },
+        ],
+      });
+      new Vue({
+        el: "#app",
+        data: {},
+        methods: {},
+        router,
+      });
+    </script>
+  </body>
+</html>
